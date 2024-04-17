@@ -1,0 +1,8 @@
+body {
+  display: flex;
+}
+
+#content {
+  font-size: 48px;
+  margin-left: 250px;
+}

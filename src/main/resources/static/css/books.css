@@ -1,0 +1,8 @@
+body {
+    display: flex;
+}
+
+.container {
+    padding: 35px;
+    margin-left: 250px;
+}

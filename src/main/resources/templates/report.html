@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+    <header>LMS</header>
+    <ul>
+        <li><a th:href="@{/dashboard}"><i class="fas fa-qrcode"></i>Dashboard</a></li>
+        <li><a th:href="@{/books}"><i class="fa-solid fa-book"></i>Books</a></li>
+        <li><a th:href="@{/loans}"><i class="fa-solid fa-hand-holding-hand"></i>Loans</a></li>
+        <li><a th:href="@{/visits}"><i class="fas fa-calendar-week"></i>Visit history</a></li>
+        <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
+        <li><a th:href="@{/profile}"><i class="fa-solid fa-user"></i>Profile</a></li>
+        <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
+    </ul>
+
+<!--    logout button-->
+</div>
+<section>
+    <div class="profile">
+        <div th:object="${user}">
+            <p th:text="${user.username}"></p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
