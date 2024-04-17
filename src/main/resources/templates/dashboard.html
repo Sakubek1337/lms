@@ -7,6 +7,9 @@
 <!--    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 </head>
 <body>
 
@@ -24,13 +27,76 @@
 
 <!--    logout button-->
 </div>
-<div id="content">
-    <div class="profile">
-        <div th:object="${user}">
-            <p th:text="${user.username}"></p>
+
+<div class="container" style="padding-left: 100px; padding-right: 50px; padding-top: 50px; border: 2px dot-dash blue"
+     th:object="${visits}">
+    <h2>Dashboard</h2>
+
+    <div class="row" style="border-top: 2px solid #bdbcbc; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+
+        <div class="col col-sm">
+            <div style="margin: auto 0 auto 0;">
+                <p style="font-size: 24px">Visits today:</p>
+                <p style="font-size: 36px" th:text="${visits.today}"></p>
+            </div>
+        </div>
+        <div class="col col-sm">
+            <div style="margin: auto 0 auto 0;">
+                <p style="font-size: 24px">Visits last 7 days:</p>
+                <p style="font-size: 36px" th:text="${visits.last7}"></p>
+            </div>
+        </div>
+        <div class="col col-sm">
+            <div style="margin: auto 0 auto 0;">
+                <p style="font-size: 24px">Visits last 30 days:</p>
+                <p style="font-size: 36px" th:text="${visits.last30}"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" th:object="${books_response}">
+        <div class="col col-sm-6">
+            <div style="margin: auto 0 auto 0;">
+                <p style="font-size: 24px">Total books in stock:</p>
+                <p style="font-size: 36px" th:text="${books_response.totalStock}"></p>
+            </div>
+        </div>
+        <div class="col col-sm-4">
+            <div style="margin: auto 0 auto 0;">
+                <p style="font-size: 24px">Total books:</p>
+                <p style="font-size: 36px" th:text="${books_response.bookCount}"></p>
+            </div>
         </div>
     </div>
+
+    <div class="row">
+        <h3 style="margin-left: 12px;">Last visitors</h3>
+        <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px; margin-right: 20px">
+            <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="visit : ${visits.lastVisits}">
+                <td th:text="${visit.studentId}"></td>
+                <td th:text="${visit.studentFirstName}"></td>
+                <td th:text="${visit.studentLastName}"></td>
+                <td th:text="${visit.time}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
+
+
+
+<hr/>
 
 </body>
 </html>

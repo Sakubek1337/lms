@@ -10,9 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/books")
+@RequestMapping("/dashboard")
 public class DashboardController {
 
     private final UserServiceImpl userService;
+
 
 }

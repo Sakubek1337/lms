@@ -6,3 +6,21 @@ body {
   font-size: 48px;
   margin-left: 250px;
 }
+
+.col {
+  height: 200px;
+  margin: 20px 20px 20px 20px;
+  border: 2px solid #bdbcbc;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #f2f8ff;
+  -webkit-box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
+  -moz-box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
+  box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
+}
+
+.row {
+  width: 1100px;
+  border-right: 1px solid #c0c0c0;
+  border-left: 1px solid #c0c0c0;
+}

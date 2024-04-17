@@ -25,7 +25,11 @@ public class BookServiceImpl {
 
     public BooksResponse getBooks(){
         List<Book> bookList = bookRepository.findAll();
-        return new BooksResponse(bookList, bookList.size());
+        return BooksResponse.builder()
+                .books(bookList)
+                .bookCount(bookRepository.count())
+                .totalStock(bookRepository.getTotalStock())
+                .build();
     }
 
     public Book getBookEntityById(Long id) throws Exception {

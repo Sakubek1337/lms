@@ -2,7 +2,9 @@ package com.iau.lms.controller;
 
 import com.iau.lms.models.dto.AuthStatus;
 import com.iau.lms.models.dto.UserDto;
+import com.iau.lms.service.impl.BookServiceImpl;
 import com.iau.lms.service.impl.UserServiceImpl;
+import com.iau.lms.service.impl.VisitServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthController {
 
     private final UserServiceImpl userService;
+    private final BookServiceImpl bookService;
+    private final VisitServiceImpl visitService;
 
     @GetMapping("/login")
     public ModelAndView getAuth(){
@@ -39,6 +43,8 @@ public class AuthController {
         ModelAndView mav = new ModelAndView("dashboard");
         UserDto user = userService.getCurrentUser();
         mav.addObject("user", user);
+        mav.addObject("books_response", bookService.getBooks());
+        mav.addObject("visits", visitService.getInfo());
         return mav;
     }
 }

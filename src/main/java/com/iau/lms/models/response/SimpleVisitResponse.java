@@ -1,6 +1,6 @@
-package com.iau.lms.models.request;
+package com.iau.lms.models.response;
 
-import com.iau.lms.models.entity.Book;
+import com.iau.lms.models.dto.VisitDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,8 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BooksResponse {
-    List<Book> books;
-    Long bookCount;
-    Long totalStock;
+public class SimpleVisitResponse {
+
+    Long today;
+    Long last7;
+    Long last30;
+    List<VisitDto> lastVisits;
+
 }
