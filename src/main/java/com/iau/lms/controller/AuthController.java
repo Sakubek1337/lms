@@ -34,8 +34,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ModelAndView register(@ModelAttribute(name = "user") UserDto user, HttpServletRequest request) throws Exception {
-        return userService.register(user, request) ? getMain() : getAuth();
+    public String register(@ModelAttribute(name = "user") UserDto user, HttpServletRequest request) throws Exception {
+        return userService.register(user, request) ? "redirect:/dashboard" : "redirect:/login";
     }
 
     @GetMapping({"/", "/dashboard"})

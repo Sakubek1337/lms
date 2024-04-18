@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-<!--    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">-->
+    <title>Visits</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/books.css}">
+    <!--    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 </head>
 <body>
 
-<div class="sidebar">
+<div id="sidebar">
     <header>LMS</header>
     <ul>
         <li><a th:href="@{/dashboard}"><i class="fas fa-qrcode"></i>Dashboard</a></li>
@@ -19,16 +24,52 @@
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
         <li><a th:href="@{/profile}"><i class="fa-solid fa-user"></i>Profile</a></li>
         <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
+        <li><form th:action="@{/logout}" method="post">
+            <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </form>
     </ul>
-
-<!--    logout button-->
 </div>
-<section>
-    <div class="profile">
-        <div th:object="${user}">
-            <p th:text="${user.username}"></p>
-        </div>
-    </div>
-</section>
+<div style="width: 250px; height: 100px"></div>
+<div class="container">
+    <h2>Visits <a th:href="@{/visits/insert}" class="btn btn-primary mb-2" style="margin-left: 100px">
+        <i class="fa-solid fa-circle-plus"></i>  Record new visit</a></h2>
+    <hr/>
+
+
+
+    <table class="table table-bordered table-striped" id="list-table" style="margin-top: 40px">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student ID</th>
+            <th>Student first name</th>
+            <th>Student last name</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="visit : ${visits}">
+            <td th:text="${visit.id}"></td>
+            <td th:text="${visit.studentId}"></td>
+            <td th:text="${visit.studentFirstName}"></td>
+            <td th:text="${visit.studentLastName}"></td>
+            <td th:text="${visit.time}"></td>
+            <td th:text="${visit.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#list-table").DataTable();
+    })
+</script>
 </body>
 </html>

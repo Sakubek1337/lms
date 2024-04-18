@@ -49,9 +49,16 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @DeleteMapping("/delete/{bookId}")
-    public String deleteBook(@PathVariable("bookId") Long bookId){
+    @PostMapping("/delete/{bookId}")
+    public String deleteBook1(@PathVariable("bookId") Long bookId){
         bookService.deleteBookbyId(bookId);
         return "redirect:/books";
+    }
+
+    @GetMapping("/delete/{bookId}")
+    public ModelAndView deleteBook(@PathVariable("bookId") Long bookId) throws Exception {
+        ModelAndView mav = new ModelAndView("books-delete-form");
+        mav.addObject("book", bookService.getBookEntityById(bookId));
+        return mav;
     }
 }

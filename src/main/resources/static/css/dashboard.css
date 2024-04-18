@@ -13,10 +13,9 @@ body {
   border: 2px solid #bdbcbc;
   border-radius: 5px;
   text-align: center;
-  background-color: #f2f8ff;
-  -webkit-box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
-  -moz-box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
-  box-shadow: inset 0px 0px 107px -42px rgba(0,0,0,0.63);
+  -webkit-box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
+  -moz-box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
+  box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
 }
 
 .row {

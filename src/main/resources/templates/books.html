@@ -24,6 +24,9 @@
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
         <li><a th:href="@{/profile}"><i class="fa-solid fa-user"></i>Profile</a></li>
         <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
+        <li><form th:action="@{/logout}" method="post">
+            <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </form>
     </ul>
 </div>
 <div style="width: 250px; height: 100px"></div>
@@ -57,7 +60,7 @@
             <td style="text-align: center; width: 180px;">
                 <a th:href="@{/books/update/{id}(id=${book.id})}"
                    class="btn btn-info">Update</a>
-                <a th:href="@{/books/update/{id}(id=${book.id})}"
+                <a th:href="@{/books/delete/{id}(id=${book.id})}"
                    class="btn btn-danger">Delete</a>
             </td>
         </tr>

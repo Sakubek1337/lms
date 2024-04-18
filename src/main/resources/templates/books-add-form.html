@@ -23,12 +23,15 @@
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
         <li><a th:href="@{/profile}"><i class="fa-solid fa-user"></i>Profile</a></li>
         <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
+        <li><form th:action="@{/logout}" method="post">
+            <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </form>
     </ul>
 
     <!--    logout button-->
 </div>
 <div class="container" id="add-form">
-    <h2>Add a new book</h2>
+    <h2>Add new book</h2>
     <hr/>
 
     <form th:action="@{/books/insert}" th:object="${new_book}" method="POST">

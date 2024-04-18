@@ -23,6 +23,9 @@
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
         <li><a th:href="@{/profile}"><i class="fa-solid fa-user"></i>Profile</a></li>
         <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
+        <li><form th:action="@{/logout}" method="post">
+            <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </form>
     </ul>
 
 <!--    logout button-->
@@ -34,38 +37,38 @@
 
     <div class="row" style="border-top: 2px solid #bdbcbc; border-top-left-radius: 5px; border-top-right-radius: 5px;">
 
-        <div class="col col-sm">
+        <div class="col col-sm" style="background-color: #8cdbff;">
             <div style="margin: auto 0 auto 0;">
                 <p style="font-size: 24px">Visits today:</p>
-                <p style="font-size: 36px" th:text="${visits.today}"></p>
+                <p style="font-size: 48px" th:text="${visits.today}"></p>
             </div>
         </div>
-        <div class="col col-sm">
+        <div class="col col-sm" style="background-color: #8cff96;">
             <div style="margin: auto 0 auto 0;">
                 <p style="font-size: 24px">Visits last 7 days:</p>
-                <p style="font-size: 36px" th:text="${visits.last7}"></p>
+                <p style="font-size: 48px" th:text="${visits.last7}"></p>
             </div>
         </div>
-        <div class="col col-sm">
+        <div class="col col-sm" style="background-color: #8cffb4;">
             <div style="margin: auto 0 auto 0;">
                 <p style="font-size: 24px">Visits last 30 days:</p>
-                <p style="font-size: 36px" th:text="${visits.last30}"></p>
+                <p style="font-size: 48px" th:text="${visits.last30}"></p>
             </div>
         </div>
 
     </div>
 
     <div class="row" th:object="${books_response}">
-        <div class="col col-sm-6">
+        <div class="col col-sm-6" style="background-color: #ff8cde;">
             <div style="margin: auto 0 auto 0;">
                 <p style="font-size: 24px">Total books in stock:</p>
-                <p style="font-size: 36px" th:text="${books_response.totalStock}"></p>
+                <p style="font-size: 48px" th:text="${books_response.totalStock}"></p>
             </div>
         </div>
-        <div class="col col-sm-4">
+        <div class="col col-sm-4" style="background-color: #ba8cff;">
             <div style="margin: auto 0 auto 0;">
                 <p style="font-size: 24px">Total books:</p>
-                <p style="font-size: 36px" th:text="${books_response.bookCount}"></p>
+                <p style="font-size: 48px" th:text="${books_response.bookCount}"></p>
             </div>
         </div>
     </div>

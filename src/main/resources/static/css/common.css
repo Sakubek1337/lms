@@ -8,7 +8,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
-    /*background: #073b56;*/
+    /*background-color: #013650;*/
 }
 #sidebar {
     position: fixed;
@@ -18,7 +18,7 @@ body {
     background: #042331;
     transition: all .5s ease;
 }
-#sidebar header {
+#sidebar header, button {
     font-size: 22px;
     color: white;
     line-height: 70px;
@@ -26,7 +26,7 @@ body {
     background: #063146;
     user-select: none;
 }
-#sidebar ul a{
+#sidebar ul a, #sidebar ul button{
     display: block;
     height: 100%;
     width: 100%;
@@ -39,9 +39,9 @@ body {
     border-top: 1px solid rgba(255,255,255,.1);
     transition: .4s;
 }
-#sidebar ul li:hover a{
+#sidebar ul li:hover a, #sidebar ul button:hover{
     padding-left: 50px;
 }
-#sidebar ul a i{
+#sidebar ul a i, #sidebar ul button i{
     margin-right: 16px;
 }

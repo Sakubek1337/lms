@@ -1,5 +1,6 @@
-package com.iau.lms.models.dto;
+package com.iau.lms.models.request;
 
+import com.iau.lms.enums.Genre;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,12 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class VisitDto {
-    Long id;
-    String time;
+public class VisitRequest {
     Long studentId;
-    String studentFirstName;
-    String studentLastName;
     Boolean isCheckIn;
-    String status;
 }

@@ -23,6 +23,7 @@ public class VisitMapper {
                 .studentLastName(entity.getStudent().getLastName())
                 .time(formatter.format(entity.getTime()))
                 .isCheckIn(entity.getIsCheckIn())
+                .status(entity.getIsCheckIn() ? "Check-In" : "Check-Out")
                 .build();
     }
 }

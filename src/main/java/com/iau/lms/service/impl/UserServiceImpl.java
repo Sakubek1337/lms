@@ -1,5 +1,6 @@
 package com.iau.lms.service.impl;
 
+import com.iau.lms.enums.Role;
 import com.iau.lms.models.dto.UserDto;
 import com.iau.lms.models.entity.User;
 import com.iau.lms.repository.UserRepository;
@@ -7,11 +8,15 @@ import com.iau.lms.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +24,7 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
@@ -43,6 +48,7 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .username(userDto.getUsername())
                 .password(encoder.encode(userDto.getPassword()))
+                .role(Role.USER)
                 .build();
         userRepository.save(user);
         UsernamePasswordAuthenticationToken authReq
@@ -63,5 +69,15 @@ public class UserServiceImpl implements UserService {
 
     private User getUserEntityById(Long id) throws Exception {
         return userRepository.findById(id).orElseThrow(() -> new Exception());
+    }
+
+    @SneakyThrows
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new Exception("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(), user.getAuthorities());
     }
 }
