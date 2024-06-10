@@ -4,12 +4,9 @@ import com.iau.lms.models.dto.AuthStatus;
 import com.iau.lms.models.dto.UserDto;
 import com.iau.lms.service.impl.BookServiceImpl;
 import com.iau.lms.service.impl.UserServiceImpl;
-import com.iau.lms.service.impl.VisitServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +18,6 @@ public class AuthController {
 
     private final UserServiceImpl userService;
     private final BookServiceImpl bookService;
-    private final VisitServiceImpl visitService;
-
     @GetMapping("/login")
     public ModelAndView getAuth(){
         ModelAndView mav = new ModelAndView("login");
@@ -41,10 +36,9 @@ public class AuthController {
     @GetMapping({"/", "/dashboard"})
     public ModelAndView getMain() throws Exception {
         ModelAndView mav = new ModelAndView("dashboard");
-        UserDto user = userService.getCurrentUser();
-        mav.addObject("user", user);
+//        UserDto user = userService.getCurrentUser();
+//        mav.addObject("user", user);
         mav.addObject("books_response", bookService.getBooks());
-        mav.addObject("visits", visitService.getInfo());
         return mav;
     }
 }

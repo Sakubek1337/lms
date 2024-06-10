@@ -1,9 +1,10 @@
 package com.iau.lms.models.entity;
 
-import com.iau.lms.enums.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -18,14 +19,14 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
-    String name;
+    String title;
 
     String author;
 
     Integer releaseYear;
 
-    @Enumerated(EnumType.STRING)
-    Genre genre;
-
     Integer stock;
+
+    @OneToMany
+    List<Loan> loans;
 }

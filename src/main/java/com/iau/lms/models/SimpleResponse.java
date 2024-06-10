@@ -12,4 +12,5 @@ import lombok.Setter;
 public class SimpleResponse {
     private String message;
     private Boolean success;
+    private Object result;
 }

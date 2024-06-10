@@ -1,6 +1,6 @@
 package com.iau.lms.models.request;
 
-import com.iau.lms.enums.Genre;
+import com.iau.lms.enums.Subject;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,7 +17,7 @@ public class InsertBookRequest {
 
     Integer releaseYear;
 
-    Genre genre;
+    Subject subject;
 
     Integer stock;
 }

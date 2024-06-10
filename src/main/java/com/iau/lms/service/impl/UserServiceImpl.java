@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return null;
         }
         User user = getUserEntityByLogin(login);
-        return new UserDto(user.getUsername(), user.getFirstName(), user.getLastName(), null);
+        return new UserDto(user.getUsername(), null);
     }
 
     @Override

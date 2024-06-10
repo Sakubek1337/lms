@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -16,13 +16,20 @@ import java.time.LocalDateTime;
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @Column(unique = true)
+    Long pin;
 
     String firstName;
 
     String lastName;
 
-    LocalDateTime lastVisitTime;
+    Integer grade;
 
-    Boolean isBanned;
+    Boolean graduated;
+
+    @OneToMany(mappedBy = "student")
+    List<Loan> loans;
 }

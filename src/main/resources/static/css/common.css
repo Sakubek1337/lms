@@ -45,3 +45,7 @@ body {
 #sidebar ul a i, #sidebar ul button i{
     margin-right: 16px;
 }
+
+.errors {
+    color: red;
+}
