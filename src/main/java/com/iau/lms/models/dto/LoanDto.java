@@ -1,5 +1,6 @@
 package com.iau.lms.models.dto;
 
+import com.iau.lms.enums.LoanStatus;
 import com.iau.lms.models.entity.Book;
 import com.iau.lms.models.entity.Student;
 import jakarta.persistence.JoinColumn;
@@ -32,5 +33,9 @@ public class LoanDto {
     String returnDate;
 
     Boolean isDue;
+
+    LoanStatus status;
+
+    String statusColor;
 
 }

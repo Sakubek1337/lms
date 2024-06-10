@@ -3,6 +3,7 @@ package com.iau.lms.service.impl;
 import com.iau.lms.mapper.StudentMapper;
 import com.iau.lms.models.SimpleResponse;
 import com.iau.lms.models.dto.StudentDto;
+import com.iau.lms.models.dto.StudentStatsDto;
 import com.iau.lms.models.request.CreateStudentRequest;
 import com.iau.lms.models.entity.Student;
 import com.iau.lms.models.request.UpdateStudentRequest;
@@ -42,6 +43,15 @@ public class StudentServiceImpl {
         return SimpleResponse.builder()
                 .success(true)
                 .result(studentDto)
+                .build();
+    }
+
+    public StudentStatsDto getStudentStats(){
+        return StudentStatsDto.builder()
+                .total(studentRepository.count())
+                .graduated(studentRepository.getTotalGraduated())
+                .current(studentRepository.count() - studentRepository.getTotalGraduated())
+                .totalLoansByGrades(null)
                 .build();
     }
 

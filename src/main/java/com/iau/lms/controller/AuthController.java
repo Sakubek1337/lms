@@ -3,6 +3,8 @@ package com.iau.lms.controller;
 import com.iau.lms.models.dto.AuthStatus;
 import com.iau.lms.models.dto.UserDto;
 import com.iau.lms.service.impl.BookServiceImpl;
+import com.iau.lms.service.impl.LoanServiceImpl;
+import com.iau.lms.service.impl.StudentServiceImpl;
 import com.iau.lms.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,9 @@ public class AuthController {
 
     private final UserServiceImpl userService;
     private final BookServiceImpl bookService;
+    private final LoanServiceImpl loanService;
+    private final StudentServiceImpl studentService;
+
     @GetMapping("/login")
     public ModelAndView getAuth(){
         ModelAndView mav = new ModelAndView("login");
@@ -39,6 +44,9 @@ public class AuthController {
 //        UserDto user = userService.getCurrentUser();
 //        mav.addObject("user", user);
         mav.addObject("books_response", bookService.getBooks());
+        mav.addObject("restocks", bookService.getRestocks());
+        mav.addObject("loanStats", loanService.getLoanStats());
+        mav.addObject("studentStats", studentService.getStudentStats());
         return mav;
     }
 }

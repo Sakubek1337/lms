@@ -49,3 +49,7 @@ body {
 .errors {
     color: red;
 }
+
+.centered-th {
+text-align: center;
+}

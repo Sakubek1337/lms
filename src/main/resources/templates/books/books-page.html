@@ -25,7 +25,6 @@
         <li><a th:href="@{/loans}"><i class="fa-solid fa-hand-holding-hand"></i>Loans</a></li>
         <li><a th:href="@{/students}"><i class="fa-solid fa-graduation-cap"></i>Students</a></li>
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
-        <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
         <li><form th:action="@{/logout}" method="post">
             <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </form>
@@ -48,25 +47,26 @@
         <tr>
             <th>ID</th>
             <th>Student</th>
-            <th>Loan date</th>
-            <th>Deadline</th>
-            <th>Return date</th>
-            <th>Action</th>
+            <th class="centered-th">Loan date</th>
+            <th class="centered-th">Deadline</th>
+            <th class="centered-th">Status</th>
+            <th class="centered-th">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="loan : ${loansResponse.result}">
             <td th:text="${loan.id}"></td>
             <td th:text="${loan.studentFullName}"></td>
-            <td th:text="${loan.creationDate}"></td>
-            <td th:text="${loan.deadline}"></td>
-            <td th:text="${loan.returnDate}"></td>
-            <td style="text-align: center; width: 180px;">
-                <a th:href="@{/loans/update/{id}(id=${loan.id})}"
-                   class="btn btn-info"><i class="fa-solid fa-pen"></i></a>
-
-                <a th:href="@{/loans/delete/{id}(id=${loan.id})}"
-                   class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+            <td class="centered-th" th:text="${loan.creationDate}"></td>
+            <td class="centered-th" th:text="${loan.deadline}"></td>
+            <td class="centered-th" th:style="'color: ' + ${loan.statusColor} + ';'" th:text="${loan.status}"></td>
+            <td style="text-align: center; width: 150px;">
+                <a th:href="@{/loans/return/{id}(id=${loan.id}, book-id=${bookResponse.result.id})}"
+                   class="btn btn-success"><i class="fa-regular fa-circle-check"></i></a>
+                <a th:href="@{/loans/neutralize/{id}(id=${loan.id}, book-id=${bookResponse.result.id})}"
+                   class="btn btn-secondary"><i class="fa-solid fa-hand-holding-hand"></i></a>
+                <a th:href="@{/loans/lose/{id}(id=${loan.id}, book-id=${bookResponse.result.id})}"
+                   class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></a>
             </td>
         </tr>
         </tbody>

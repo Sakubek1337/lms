@@ -1,5 +1,6 @@
 package com.iau.lms.mapper;
 
+import com.iau.lms.enums.LoanStatus;
 import com.iau.lms.models.dto.LoanDto;
 import com.iau.lms.models.entity.Book;
 import com.iau.lms.models.entity.Loan;
@@ -25,6 +26,8 @@ public class LoanMapper {
                 .bookAuthor(loan.getBook().getAuthor())
                 .creationDate(formatter.format(loan.getCreationDate()))
                 .deadline(formatter.format(loan.getDeadline()))
+                .status(loan.getStatus())
+                .statusColor(getStatusColor(loan.getStatus()))
                 .returnDate(loan.getIsReturned() ? formatter.format(loan.getReturnDate()) : "-")
                 .id(loan.getId())
                 .isDue(loan.getDeadline().isBefore(LocalDate.now(ZoneId.of("Asia/Bishkek"))))
@@ -48,5 +51,13 @@ public class LoanMapper {
                 .deadline(request.getDeadline())
                 .isReturned(request.getIsReturned())
                 .build();
+    }
+
+    private static String getStatusColor(LoanStatus status){
+        return switch (status){
+            case LOST -> "red";
+            case BORROWED -> "black";
+            case RETURNED -> "green";
+        };
     }
 }

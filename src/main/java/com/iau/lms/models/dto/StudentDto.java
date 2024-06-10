@@ -27,6 +27,12 @@ public class StudentDto {
 
     Integer loans;
 
+    Integer returnedLoans;
+
+    Integer borrowedLoans;
+
+    Integer lostLoans;
+
     String fullName;
 
     String fullCard;

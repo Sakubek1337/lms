@@ -26,7 +26,6 @@
         <li><a th:href="@{/loans}"><i class="fa-solid fa-hand-holding-hand"></i>Loans</a></li>
         <li><a th:href="@{/students}"><i class="fa-solid fa-graduation-cap"></i>Students</a></li>
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
-        <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
         <li><form th:action="@{/logout}" method="post">
             <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </form>
@@ -35,7 +34,9 @@
 <div style="width: 250px; height: 100px"></div>
 <div class="container">
     <h2>Loans <a th:href="@{/loans/insert}" class="btn btn-primary mb-2" style="margin-left: 50px">
-        <i class="fa-solid fa-circle-plus"></i>  Record new Loan</a></h2>
+        <i class="fa-solid fa-circle-plus"></i>  Record new Loan</a>
+        <a th:href="@{/loans/download}" class="btn btn-success mb-2">
+            <i class="fa-solid fa-download"></i>  Download CSV</a></h2></h2>
     <hr/>
 
 
@@ -46,10 +47,10 @@
             <th>ID</th>
             <th>Book</th>
             <th>Student</th>
-            <th>Date</th>
-            <th>Deadline</th>
-            <th>Return date</th>
-            <th>Action</th>
+            <th class="centered-th">Date</th>
+            <th class="centered-th">Deadline</th>
+            <th class="centered-th">Status</th>
+            <th class="centered-th">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -57,14 +58,16 @@
             <td th:text="${loan.id}"></td>
             <td th:text="${loan.bookTitle}"></td>
             <td th:text="${loan.studentFullName}"></td>
-            <td th:text="${loan.creationDate}"></td>
-            <td th:text="${loan.deadline}"></td>
-            <td th:text="${loan.returnDate}"></td>
-            <td style="text-align: center; width: 180px;">
-                <a th:href="@{/loans/{id}(id=${loan.id})}"
-                   class="btn btn-info"><i class="fa-solid fa-circle-info"></i></a>
-                <a th:href="@{/loans/update/{id}(id=${loan.id})}"
-                   class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
+            <td class="centered-th" th:text="${loan.creationDate}"></td>
+            <td class="centered-th" th:text="${loan.deadline}"></td>
+            <td class="centered-th" th:style="'color: ' + ${loan.statusColor} + ';'" th:text="${loan.status}"></td>
+            <td style="text-align: center; width: 150px;">
+                <a th:href="@{/loans/return/{id}(id=${loan.id})}"
+                   class="btn btn-success"><i class="fa-regular fa-circle-check"></i></a>
+                <a th:href="@{/loans/neutralize/{id}(id=${loan.id})}"
+                   class="btn btn-secondary"><i class="fa-solid fa-hand-holding-hand"></i></a>
+                <a th:href="@{/loans/lose/{id}(id=${loan.id})}"
+                   class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></a>
             </td>
         </tr>
         </tbody>

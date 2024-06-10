@@ -24,7 +24,6 @@
         <li><a th:href="@{/loans}"><i class="fa-solid fa-hand-holding-hand"></i>Loans</a></li>
         <li><a th:href="@{/students}"><i class="fa-solid fa-graduation-cap"></i>Students</a></li>
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
-        <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
         <li><form th:action="@{/logout}" method="post">
             <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </form>
@@ -49,6 +48,7 @@
 <!--        <input type="text" id="author" th:field="*{lastName}" class="form-control col-4 mb-4"/>-->
 
         <label for="genres">Student</label>
+        <small th:if="${limitReached == true}" class="errors">Student reached the limit for borrowed books(5)!</small>
         <select id="genres" style="width:500px" th:field="*{studentId}">
             <option th:each="student: ${options.students}"
             th:value="${student.id}"
@@ -57,6 +57,7 @@
         </select>
 
         <label for="genres1">Book</label>
+        <small th:if="${alreadyHas == true}" class="errors">Student already borrowed given book and has not returned it yet!</small>
         <select id="genres1" style="width:500px" th:field="*{bookId}">
             <option th:each="book: ${options.books}"
                     th:value="${book.id}"

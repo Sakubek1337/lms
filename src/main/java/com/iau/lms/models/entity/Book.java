@@ -27,6 +27,6 @@ public class Book {
 
     Integer stock;
 
-    @OneToMany
+    @OneToMany(mappedBy = "book")
     List<Loan> loans;
 }

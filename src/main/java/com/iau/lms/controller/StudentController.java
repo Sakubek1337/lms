@@ -1,18 +1,34 @@
 package com.iau.lms.controller;
 
 import com.iau.lms.models.SimpleResponse;
+import com.iau.lms.models.entity.Book;
 import com.iau.lms.models.entity.Student;
 import com.iau.lms.models.request.CreateStudentRequest;
 import com.iau.lms.models.request.UpdateStudentRequest;
+import com.iau.lms.repository.StudentRepository;
 import com.iau.lms.service.impl.LoanServiceImpl;
 import com.iau.lms.service.impl.StudentServiceImpl;
 import com.iau.lms.service.impl.UserServiceImpl;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +37,7 @@ public class StudentController {
 
     private final StudentServiceImpl studentService;
     private final LoanServiceImpl loanService;
+    private final StudentRepository studentRepository;
 
     @GetMapping({"", "/"})
     public ModelAndView main(){
@@ -83,5 +100,27 @@ public class StudentController {
         ModelAndView mav = new ModelAndView("students/students-delete-form");
         mav.addObject("student", studentService.getStudentEntityById(studentId));
         return mav;
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<StreamingResponseBody> downloadCsv() {
+
+        StreamingResponseBody stream = outputStream -> {
+            List<Student> books = studentRepository.findAll();
+            try (Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
+                try {
+                    new StatefulBeanToCsvBuilder<Student>(writer)
+                            .build().write(books);
+                } catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        };
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("text/csv; charset=UTF-8"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=%s", "book_details.csv"))
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION)
+                .body(stream);
     }
 }

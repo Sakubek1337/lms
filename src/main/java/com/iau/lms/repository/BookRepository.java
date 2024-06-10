@@ -11,6 +11,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Long getTotalStock();
 
     @Query(nativeQuery = true,
+            value = "SELECT count(*) FROM (SELECT DISTINCT author FROM books);")
+    Long getTotalAuthors();
+
+    @Query(nativeQuery = true,
             value = "SELECT count(*) FROM books;")
     Long getTotalBooks();
 }

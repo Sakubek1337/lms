@@ -1,5 +1,6 @@
 body {
   display: flex;
+
 }
 
 #content {
@@ -8,18 +9,19 @@ body {
 }
 
 .col {
-  height: 200px;
+  height: 140px;
   margin: 20px 20px 20px 20px;
   border: 2px solid #bdbcbc;
   border-radius: 5px;
   text-align: center;
-  -webkit-box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
-  -moz-box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
-  box-shadow: inset 0px 0px 28px 0px rgba(179,179,179,1);
 }
 
+
+
 .row {
+
+  color: #042331;
   width: 1100px;
-  border-right: 1px solid #c0c0c0;
-  border-left: 1px solid #c0c0c0;
+  border: 1px solid #c0c0c0;
+
 }

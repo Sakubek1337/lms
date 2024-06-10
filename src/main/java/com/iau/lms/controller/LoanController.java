@@ -72,5 +72,45 @@ public class LoanController {
         return "redirect:/loans/insert";
     }
 
+    @GetMapping("/return/{id}")
+    public String returnLoan(@RequestParam(name = "student-id", required = false) Long studentId,
+                             @RequestParam(name = "book-id", required = false) Long bookId,
+                             @PathVariable("id") Long loanId) throws Exception {
+        loanService.returnLoan(loanId);
+        if (studentId == null && bookId == null) {
+            return "redirect:/loans";
+        }
+        if (studentId == null) {
+            return "redirect:/books/" + bookId;
+        }
+        return "redirect:/students/" + studentId;
+    }
 
+    @GetMapping("/lose/{id}")
+    public String loseLoan(@RequestParam(name = "student-id", required = false) Long studentId,
+                             @RequestParam(name = "book-id", required = false) Long bookId,
+                             @PathVariable("id") Long loanId) throws Exception {
+        loanService.loseLoan(loanId);
+        if (studentId == null && bookId == null) {
+            return "redirect:/loans";
+        }
+        if (studentId == null) {
+            return "redirect:/books/" + bookId;
+        }
+        return "redirect:/students/" + studentId;
+    }
+
+    @GetMapping("/neutralize/{id}")
+    public String nLoan(@RequestParam(name = "student-id", required = false) Long studentId,
+                           @RequestParam(name = "book-id", required = false) Long bookId,
+                           @PathVariable("id") Long loanId) throws Exception {
+        loanService.neutralizeLoan(loanId);
+        if (studentId == null && bookId == null) {
+            return "redirect:/loans";
+        }
+        if (studentId == null) {
+            return "redirect:/books/" + bookId;
+        }
+        return "redirect:/students/" + studentId;
+    }
 }

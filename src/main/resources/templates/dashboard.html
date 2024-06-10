@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 </head>
 <body>
 
@@ -21,7 +22,6 @@
         <li><a th:href="@{/loans}"><i class="fa-solid fa-hand-holding-hand"></i>Loans</a></li>
         <li><a th:href="@{/students}"><i class="fa-solid fa-graduation-cap"></i>Students</a></li>
         <li><a th:href="@{/report}"><i class="fa-solid fa-chart-line"></i>Report</a></li>
-        <li><a th:href="@{/config}"><i class="fa-solid fa-gears"></i>Configuration</a></li>
         <li><form th:action="@{/logout}" method="post">
             <button type="submit"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </form>
@@ -31,74 +31,86 @@
 </div>
 
 <div class="container" style="padding-left: 100px; padding-right: 50px; padding-top: 50px; border: 2px dot-dash blue"
-     th:object="${visits}">
-    <h2>Dashboard</h2>
+     th:object="${restocks}">
+    <h2>General</h2>
 
-    <div class="row" style="border-top: 2px solid #bdbcbc; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+    <div class="row" style="border-top: 2px solid #bdbcbc; border-top-left-radius: 5px; border-top-right-radius: 5px;
+background-color: white;">
 
-        <div class="col col-sm" style="background-color: #8cdbff;">
+        <div class="col col-sm" style="background-color: #d5dce6;">
             <div style="margin: auto 0 auto 0;">
-                <p style="font-size: 24px">Visits today:</p>
-<!--                <p style="font-size: 48px" th:text="${visits.today}"></p>-->
+                <p style="font-size: 24px">Total students:</p>
+                <p style="font-size: 48px" th:text="${studentStats.total}"></p>
             </div>
         </div>
-        <div class="col col-sm" style="background-color: #8cff96;">
+        <div class="col col-sm" style="background-color: #d5dce6;">
             <div style="margin: auto 0 auto 0;">
-                <p style="font-size: 24px">Visits last 7 days:</p>
-<!--                <p style="font-size: 48px" th:text="${visits.last7}"></p>-->
+                <p style="font-size: 24px">Loans last 7 days:</p>
+                <p style="font-size: 48px" th:text="${loanStats.last7days}"></p>
             </div>
         </div>
-        <div class="col col-sm" style="background-color: #8cffb4;">
+        <div class="col col-sm" style="background-color: #d5dce6;">
             <div style="margin: auto 0 auto 0;">
-                <p style="font-size: 24px">Visits last 30 days:</p>
-<!--                <p style="font-size: 48px" th:text="${visits.last30}"></p>-->
+                <p style="font-size: 24px">Loans last 30 days:</p>
+                <p style="font-size: 48px" th:text="${loanStats.last30days}"></p>
             </div>
         </div>
 
     </div>
 
-    <div class="row" th:object="${books_response}">
-        <div class="col col-sm-6" style="background-color: #ff8cde;">
+    <div class="row" th:object="${books_response}" style="border-bottom: 2px solid #bdbcbc; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;
+                                                            background-color: white;">
+        <div class="col col-sm-6" style="background-color: #d5dce6;">
             <div style="margin: auto 0 auto 0;">
-                <p style="font-size: 24px">Total stock:</p>
+                <p style="font-size: 24px">Total books:</p>
                 <p style="font-size: 48px" th:text="${books_response.totalStock}"></p>
             </div>
         </div>
-        <div class="col col-sm-4" style="background-color: #ba8cff;">
+        <div class="col col-sm-5" style="background-color: #d5dce6;">
             <div style="margin: auto 0 auto 0;">
-                <p style="font-size: 24px">Total books:</p>
+                <p style="font-size: 24px">Total titles:</p>
                 <p style="font-size: 48px" th:text="${books_response.bookCount}"></p>
             </div>
         </div>
     </div>
 
-<!--    <div class="row">-->
-<!--        <h3 style="margin-left: 12px;">Last visitors</h3>-->
-<!--        <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px; margin-right: 20px">-->
-<!--            <thead class="thead-light">-->
-<!--            <tr>-->
-<!--                <th>ID</th>-->
-<!--                <th>First Name</th>-->
-<!--                <th>Last Name</th>-->
-<!--                <th>Time</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="visit : ${visits.lastVisits}">-->
-<!--                <td th:text="${visit.studentId}"></td>-->
-<!--                <td th:text="${visit.studentFirstName}"></td>-->
-<!--                <td th:text="${visit.studentLastName}"></td>-->
-<!--                <td th:text="${visit.time}"></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
+
+        <h3 style="margin-left: 12px; margin-top: 30px; margin-bottom: 30px; color: black;">Restock operations history</h3>
+        <table class="table table-bordered" id="rstable">
+            <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Book Title</th>
+                <th class="centered-th">Book Author</th>
+                <th class="centered-th">Type</th>
+                <th class="centered-th">Date</th>
+                <th class="centered-th">Change</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="restock : ${restocks}">
+                <td class="centered-th" th:text="${restock.id}"></td>
+                <td th:text="${restock.bookTitle}"></td>
+                <td class="centered-th" th:text="${restock.bookAuthor}"></td>
+                <td class="centered-th" th:text="${restock.type}"></td>
+                <td class="centered-th" th:text="${restock.creationDate}"></td>
+                <td class="centered-th" th:style="${restock.isAddition ? 'color: green;' : 'color: red;'}" th:text="${restock.numberText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
 
 </div>
 
 
 
 <hr/>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#rstable").DataTable();
+    })
+</script>
 </body>
 </html>
