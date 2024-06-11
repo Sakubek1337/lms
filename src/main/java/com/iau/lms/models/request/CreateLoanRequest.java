@@ -16,10 +16,13 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateLoanRequest {
 
+    @NotNull
     Long studentId;
 
+    @NotNull
     Long bookId;
 
+    @NotNull
     LocalDate deadline;
 
 }

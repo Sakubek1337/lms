@@ -25,10 +25,6 @@ public class BookCreateRequest {
     @Size(max = 2024)
     Integer releaseYear;
 
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    Subject subject;
-
     @NotNull
     Integer stock;
 }
