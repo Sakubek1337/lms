@@ -106,7 +106,7 @@ public class BookController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("text/csv; charset=UTF-8"))
-                .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=%s", "book_details.csv"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=%s", "books.csv"))
                 .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION)
                 .body(stream);
     }
